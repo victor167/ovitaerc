@@ -6,27 +6,50 @@
 </head>
 <body>
     <script>
-        var text = `body.main{
+        /*var text = `body.main{
             div.left{
                 input[type="text"]{}
                 input[type="button"](Enviar){}
             }
             div.right{}
         }
-        `;
+        `;*/
+
+        var text = `div.hola{}`;
 
         function render(html){
+            var all_identities = [
+                {
+                    name: 'element',
+                    aperture: /[a-z]/
+                },
+                {
+                    name: 'class',
+                    aperture: /\./
+                },
+                {
+                    name: 'attr',
+                    aperture: /\[/
+                }
+            ];
+
             var identities  = [];
             var identity    = '';
             var armer       = '';
             var r           = html.split("");
 
-            
-
-            console.log("r",r);
+            for(var i=0;i<r.length;i++){
+                //console.log("=========>",r[i]);
+                for(var j=0;j<all_identities.length;j++){
+                    var result = r[i].match(all_identities[j].aperture);
+                    if(result!==null){
+                        identity    =   all_identities[j].name;
+                        identities.push(identity);
+                        console.log(all_identities[j].name,result);
+                    }
+                }
+            }
         }
-
-
 
         render(text);
     </script>
