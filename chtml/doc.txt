@@ -1,0 +1,14 @@
+body.main{
+	div.left{
+		input[type="text"]{}
+		input[type="button"](Enviar){}
+	}
+	div.right{}
+}
+
+
+
+element 	= 	az09:delimited(.{[)
+class 		= 	az09-_:delimited(.{[)
+attrname 	= 	az09-:delimited(=)
+attrval		=	all:delimited(")
