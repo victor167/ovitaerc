@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="download">Download</button>
+    <script>
+
+
+        function download_base64(base64File,filename){
+            if (typeof base64File !== "undefined" && typeof filename !== "undefined") {
+                var binStr = atob(base64File.split(',')[1]),
+                    len = binStr.length,
+                    arr = new Uint8Array(len),
+                    mimeString = base64File.split(',')[0].split(':')[1].split(';')[0]
+
+                for (var i = 0; i < len; i++) {
+                    arr[i] = binStr.charCodeAt(i);
+                }
+
+                var blob = new Blob([arr], {
+                    type: mimeString
+                });
+
+                var url = URL.createObjectURL(blob);
+
+                var a = document.createElement('a')
+                a.href = url;
+                a.download = filename;
+                a.click();
+            }
+        }
+
+        download.onclick = function(){
+            console.log("descargando");
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = 'blob';
+            xhr.onload = function() {
+                var fr = new FileReader();
+                fr.onload = function(){
+                    console.log(this.result);
+                    download_base64(this.result,"listo");
+                };
+                fr.readAsDataURL(this.response);
+            };
+            xhr.open('GET', 'https://dl.dropboxusercontent.com/s/bch2j17v6ny4ako/movie720p.mp4?dl=0');
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
