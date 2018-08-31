@@ -2,8 +2,22 @@
  * Created by victor167 on 28/08/2018.
  */
 
-var championships = [];
+
 var games = [];
+games.push({
+    player1: 'Victor',
+    player2: 'Volteau'
+});
+
+function makeid() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 10; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
 
 function addApuesta(title,game,sets,object1,object2){
     /**
@@ -23,8 +37,24 @@ function addApuesta(title,game,sets,object1,object2){
     console.log("object1",object1);
     console.log("object2",object2);
     console.log("=================");
+    var keyChampions = addChampionship(title);
+
+    for(var i=0;i<games.length;i++){
+        if(games[i].object1==object1.name){
+
+        }
+    }
 }
 
-function addChampionship(title){
 
+var championships = [];
+function addChampionship(title){
+    for(var i=0;i<championships.length;i++){
+        if(championships[i].title===title){
+            return championships[i].key;
+        }
+    }
+    var key = makeid();
+    championships.push({title:title,key: key});
+    return key;
 }
